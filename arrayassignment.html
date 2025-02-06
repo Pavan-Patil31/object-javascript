@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrayassignment</title>
+
+    <!-- bootstrap -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+/>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+    }
+
+    .assignment {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #f9f9f9;
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .output {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+     .container{
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        /* padding: 15px; */
+        /* margin-bottom: 20px; */
+        background: #f9f9f9;
+        background-color: antiquewhite;
+        text-align: center;
+
+     }
+
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px 0;
+    }
+
+    input,
+    button {
+        margin: 5px;
+    }
+
+    .highlight {
+        background-color: yellow;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .column {
+        flex: 50%;
+        padding: 10px;
+    }
+</style>  
+
+
+
+</head>
+<body>
+    <!-- <h2>To-Do List Manager</h2> -->
+
+    <div class="container w-50 mx-auto shadow">
+           <div class="m-3 p-5">
+            <h2>1.To-Do List Manager</h2>
+            <input type="text" id="newTask"/>
+            <button class="btn btn-primary" onclick="AddNewTAsk()">Add Task</button>
+            <button class="btn btn-danger" onclick="clearAll()">Clear Task</button>
+            <ul id="showList"></ul>
+            </div>
+        
+            
+
+    <!-- Assignment 2: Student Marks Calculator -->
+    <div class="assignment" id="marks-calculator">
+        
+        <h3>2. Student Marks Calculator</h3>
+        <input type="number" id="markInput" placeholder="Enter a mark" />
+        <button onclick="addMark()">Add Mark</button>
+        <button onclick="calculateMarks()" class="btn btn-success">Calculate</button>
+        <button onclick="resetMarks()" class="btn btn-danger">Reset</button>
+        <div class="output" id="marksOutput"></div>
+    </div>
+
+    
+
+<!-- 3.search in an array -->
+<div class="assignment" id="search-array">
+    <h3>3. Search in an Array</h3>
+    <input type="text" id="searchInput" placeholder="Search for a car brand" />
+    <button onclick="searchCar()">Search</button>
+    <ul id="searchResults"></ul>
+</div>
+<br>
+    <!-- even odd numvers -->
+    <div class="assignment" id="marks-calculator">
+        
+        <h3>4. Filter Even and Odd Numbers</h3>
+        <input type="number" id="numberInput" placeholder="Enter a number" />
+        <button onclick="addNumber()">Add Number</button>
+        <button onclick="showEven()" class="btn btn-success">Show Even</button>
+        <button onclick="showOdd()" class="btn btn-danger">Show Odd</button>
+        <button onclick="clearOutput">Clear</button>
+        <div class="output" id="marksOutput"></div>
+    </div>
+</div>
+
+    <script>
+        // to do list manager
+
+        tasks = ['Data Science','ML','Centemental analysis']
+        Lists=document.getElementById('showList')
+        function renderTasks(){
+            Lists.innreHTML =
+            tasks.map((task, index)=>`
+            <li class='text-primary'>${task}</li>
+            <button>, class='btn btn-danger' onclick='deleteTask(${index})''>delete</button>
+            `).join('')
+        }
+        function AddNewTAsk(){
+          newTask = document.getElementById('newTask').value;
+          console.log(newTask);
+          tasks.push(newTask)
+          console.log(tasks)
+          document.getElementById('newTask').value = ''
+          renderTasks();
+        }
+
+        function clearAll(){
+            tasks = [];
+            console.log(tasks);
+            renderTasks();
+            Lists.innreHTML = 'No Projects'
+
+        }
+
+        function deleteTask(i){
+            console.log(i);
+            console.log(tasks);
+            tasks.splice(i,1);
+            console.log(tasks);
+            renderTasks();
+        }
+        renderTasks();
+
+        //second question.
+
+
+        let marks = [];
+        function addMark() {
+            const mark = parseInt(document.getElementById('markInput').value);
+            if (!isNaN(mark)) {
+                marks.push(mark);
+                document.getElementById('markInput').value = '';
+            }
+        }
+        function calculateMarks() {
+            
+                const total = marks.reduce((sum, mark) => sum + mark, 0);
+                
+                
+                const average = total / marks.length;
+                const max = Math.max(...marks);//... is spread operator
+                const min = Math.min(...marks);
+                document.getElementById('marksOutput').innerHTML = `
+          Total Marks: ${total} <br>
+          Average Marks: ${average.toFixed(2)} <br>
+          Highest Mark: ${max} <br>
+          Lowest Mark: ${min}
+        `;
+            }
+            
+
+        
+        console.log(calculateMarks);
+        function resetMarks() {
+            marks = [];
+            document.getElementById('marksOutput').innerHTML = '';
+        }
+
+        //3 question
+
+
+        const carBrands = ["Toyota", "Honda", "Ford", "BMW", "Audi", "Mercedes", "Nissan",
+        "Hyundai", "Kia", "Tesla"];
+
+function searchCar() {
+    const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+    const searchResults = document.getElementById('searchResults');
+    // Filter car brands based on the search input
+    const filteredBrands = carBrands.filter(brand => brand.toLowerCase().includes(searchInput));
+    // Clear and update the search results
+    searchResults.innerHTML = filteredBrands.length
+        ? filteredBrands.map(brand => `<li>${brand}</li>`).join('')
+        : '<li>No matches found</li>';
+
+        // 4.qusetion
+        let  Numbers= [];
+         
+        function addNumber(){
+            const num = parseInt(document.getElementById('numberInput').value);
+            if(!isNaN(num)){
+                numbers.push(num);
+                document.getElementById('numberInput').value= '';
+            }
+        }
+
+        
+}
+    </script>
+
+
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"
+></script>
+    
+</body>
+</html>
